@@ -1,0 +1,57 @@
+﻿@model IEnumerable<N_Tier_Blog.Models.EntityModels.Category>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <hr />
+        <a href="~/Category/Crete" class="btn btn-primary">Ekle</a>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th width="80">Category Photo</th>
+                    <th>Category Name</th>
+                    <th>Subcategory</th>
+                    <th>Register Date</th>
+                    <th>Update Date</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td width="80">
+                            <img src="~/img/@item.Photo" class="img-responsive" title="@item.Name" />
+                        </td>
+                        <td>@item.Name</td>
+                        <td>@item.Subcategories.Count()</td>
+                        <td>@item.CreatedDate.ToLongDateString()</td>
+                        <td>
+                            @if (item.UpdatedDate!=null)
+                            {
+                                @item.UpdatedDate.Value.ToLongDateString();
+                            }
+                            else
+                            {
+                                <span>--</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsConfirmed == true)
+                            {
+                                <a href="~/Category/DeActive/@item.Id" class="btn btn-warning">Suspend</a>
+                            }
+                            else
+                            {
+                                <a href="~/Category/Active/@item.Id" class="btn btn-success">Active</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

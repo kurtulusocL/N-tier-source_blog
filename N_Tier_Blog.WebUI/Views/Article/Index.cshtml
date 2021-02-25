@@ -1,0 +1,18 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model IPagedList<N_Tier_Blog.Models.EntityModels.Article>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    @Html.Action("_HitRead", "Article", new { id = item.Id })
+}
+
+<div class="pagination" align="center">
+    <div class="pagination-large">
+        @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>
